@@ -17,7 +17,7 @@ plot_thermal_habitat_area <- function(shadedRegion = NULL,
                                       EPU = "MAB") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -30,10 +30,10 @@ plot_thermal_habitat_area <- function(shadedRegion = NULL,
     filterEPUs <- EPU
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-  fix <- ecodata::thermal_habitat_area |>
+  fix <- ecodata25::thermal_habitat_area |>
       dplyr::filter(EPU == filterEPUs)
 
   limits <- fix |>

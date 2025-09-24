@@ -20,7 +20,7 @@ plot_benthos_index <- function(shadedRegion = NULL,
                               plottype = "index",
                               n = 0) {
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # convert to leading capital
@@ -38,14 +38,14 @@ plot_benthos_index <- function(shadedRegion = NULL,
       filterEPUs <- c("GB", "GOM")
     }
 
-    fix<- ecodata::benthos_index |>
+    fix<- ecodata25::benthos_index |>
       dplyr::filter(Var %in% c(paste("Fall",varName,"Biomass Index Estimate"),
                                paste("Spring",varName,"Megabenthos Biomass Index Estimate")),
                     EPU %in% filterEPUs) |>
       dplyr::group_by(EPU) |>
       dplyr::summarise(max = max(Value))
 
-    p <- ecodata::benthos_index |>
+    p <- ecodata25::benthos_index |>
       dplyr::filter(Var %in% c(paste("Fall",varName,"Biomass Index Estimate"),
                                paste("Fall",varName,"Biomass Index Estimate SE"),
                                paste("Spring",varName,"Biomass Index Estimate"),
@@ -75,11 +75,11 @@ plot_benthos_index <- function(shadedRegion = NULL,
       ggplot2::ylab(paste("Relative",varName,"Biomass"))+
       ggplot2::xlab(ggplot2::element_blank())+
       ggplot2::facet_wrap(.~EPU)+
-      ecodata::geom_gls()+
-      ecodata::geom_lm(n=n)+
-      ecodata::theme_ts()+
-      ecodata::theme_facet()+
-      ecodata::theme_title()
+      ecodata25::geom_gls()+
+      ecodata25::geom_lm(n=n)+
+      ecodata25::theme_ts()+
+      ecodata25::theme_facet()+
+      ecodata25::theme_title()
 
     if (report == "NewEngland") {
       p <- p +
@@ -91,7 +91,7 @@ plot_benthos_index <- function(shadedRegion = NULL,
 
   if (plottype == "cog"){
 
-    p <- ecodata::benthos_index |>
+    p <- ecodata25::benthos_index |>
       dplyr::filter(Var %in% c(paste("Fall",varName,"Eastward Center of Gravity"),
                                paste("Fall",varName,"Eastward Center of Gravity SE"),
                                paste("Fall",varName,"Northward Center of Gravity"),
@@ -117,11 +117,11 @@ plot_benthos_index <- function(shadedRegion = NULL,
       ggplot2::ylab(paste(varName," Center of Gravity, km"))+
       ggplot2::xlab(ggplot2::element_blank())+
       ggplot2::facet_wrap(~Direction, scales = "free_y")+ #Season
-      ecodata::geom_gls()+
-      ecodata::geom_lm(n=n)+
-      ecodata::theme_ts()+
-      ecodata::theme_facet()+
-      ecodata::theme_title()
+      ecodata25::geom_gls()+
+      ecodata25::geom_lm(n=n)+
+      ecodata25::theme_ts()+
+      ecodata25::theme_facet()+
+      ecodata25::theme_title()
 
   }
 

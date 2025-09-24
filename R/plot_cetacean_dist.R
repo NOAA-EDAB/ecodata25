@@ -15,7 +15,7 @@ plot_cetacean_dist <- function(shadedRegion = NULL,
                                           report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_cetacean_dist <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  hms10<- ecodata::cetacean_dist |>
+  hms10<- ecodata25::cetacean_dist |>
     tidyr::separate(Var, into = c("Var", "species", "season"), sep = "_") |>
     tidyr::pivot_wider(names_from = Var, values_from = Value) |>
     dplyr::filter(Time == 2010) |>
@@ -35,7 +35,7 @@ plot_cetacean_dist <- function(shadedRegion = NULL,
                   "y_start" = wlat) |>
     dplyr::select(!Time)
 
-  hms<-ecodata::cetacean_dist |>
+  hms<-ecodata25::cetacean_dist |>
     tidyr::separate(Var, into = c("Var", "species", "season"), sep = "_") |>
     tidyr::pivot_wider(names_from = Var, values_from = Value) |>
     dplyr::filter(Time == 2017) |>
@@ -56,7 +56,7 @@ plot_cetacean_dist <- function(shadedRegion = NULL,
   # xmin = setup$x.shade.min , xmax = setup$x.shade.max
   #
   p <-  hms |> ggplot2::ggplot() +
-      ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+      ggplot2::geom_sf(data = ecodata25::coast, size = setup$map.lwd) +
       ggplot2::geom_sf(data = setup$epu_sf, fill = "transparent", size = setup$map.lwd) +
       ggplot2::geom_segment( mapping = ggplot2::aes(x = x_start, y = y_start,
                                   xend = x_end, yend = y_end, color = species),
@@ -65,7 +65,7 @@ plot_cetacean_dist <- function(shadedRegion = NULL,
       #ggplot2::scale_shape_manual(values=c(16, 3, 17))+
       #ggplot2::scale_color_manual(values = c("blue", "black", "red"))+
       ggplot2::coord_sf(xlim = setup$xlims, ylim = setup$ylims) +
-      ecodata::theme_map() +
+      ecodata25::theme_map() +
       ggplot2::ggtitle("Cetacean Species Distribution") +
     ggplot2::xlab("") +
     ggplot2::ylab("") +
@@ -97,7 +97,7 @@ attr(plot_cetacean_dist,"report") <- c("MidAtlantic","NewEngland")
 
 
   # Paste commented original plot code chunk for reference
-  # hms10<- ecodata::cetacean_dist |>
+  # hms10<- ecodata25::cetacean_dist |>
   #   tidyr::separate(Var, into = c("Var", "species", "season"), sep = "_") |>
   #   tidyr::pivot_wider(names_from = Var, values_from = Value) |>
   #   dplyr::filter(Time == 2010) |>
@@ -105,7 +105,7 @@ attr(plot_cetacean_dist,"report") <- c("MidAtlantic","NewEngland")
   #                 "y_start" = wlat) |>
   #   dplyr::select(!Time)
   #
-  # hms<-ecodata::cetacean_dist |>
+  # hms<-ecodata25::cetacean_dist |>
   #   tidyr::separate(Var, into = c("Var", "species", "season"), sep = "_") |>
   #   tidyr::pivot_wider(names_from = Var, values_from = Value) |>
   #   dplyr::filter(Time == 2017) |>
@@ -119,7 +119,7 @@ attr(plot_cetacean_dist,"report") <- c("MidAtlantic","NewEngland")
   #                                        summer = "Summer"))
   # hms$season <- factor(hms$season,levels = c("Winter","Spring",
   #                                            "Summer", "Fall"))
-  # epu_sf <- ecodata::epu_sf |>
+  # epu_sf <- ecodata25::epu_sf |>
   #   dplyr::filter(EPU %in% c("GOM","GB", "MAB"))
   # map.lwd <- 0.4
   # xmin = -77
@@ -129,7 +129,7 @@ attr(plot_cetacean_dist,"report") <- c("MidAtlantic","NewEngland")
   # xlims <- c(xmin, xmax)
   # ylims <- c(ymin, ymax)
   # hms_map <- hms |> ggplot2::ggplot() +
-  #   ggplot2::geom_sf(data = ecodata::coast, size = map.lwd) +
+  #   ggplot2::geom_sf(data = ecodata25::coast, size = map.lwd) +
   #   ggplot2::geom_sf(data = epu_sf, fill = "transparent", size = map.lwd) +
   #   geom_segment( mapping = aes(x = x_start, y = y_start,
   #                               xend = x_end, yend = y_end, color = species),
@@ -138,7 +138,7 @@ attr(plot_cetacean_dist,"report") <- c("MidAtlantic","NewEngland")
   #   #ggplot2::scale_shape_manual(values=c(16, 3, 17))+
   #   #ggplot2::scale_color_manual(values = c("blue", "black", "red"))+
   #   ggplot2::coord_sf(crs = crs, xlim = xlims, ylim = ylims) +
-  #   ecodata::theme_map() +
+  #   ecodata25::theme_map() +
   #   ggplot2::ggtitle("HMS Species Distibution") +
   #   ggplot2::xlab("") +
   #   ggplot2::ylab("") +

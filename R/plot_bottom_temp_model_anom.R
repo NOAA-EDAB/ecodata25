@@ -20,7 +20,7 @@ plot_bottom_temp_model_anom <- function(shadedRegion=NULL,
                                   plottype = 'GLORYS',
                                   n = 0) {
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -33,7 +33,7 @@ plot_bottom_temp_model_anom <- function(shadedRegion=NULL,
   }
 
 
-  fix <- ecodata::bottom_temp_model_anom |>
+  fix <- ecodata25::bottom_temp_model_anom |>
     dplyr::filter(EPU %in% filterEPUs) |>
     dplyr::mutate(Time = as.numeric(Time),
                   Var = stringr::str_to_title(stringr::str_extract(Var,"Winter|Spring|Summer|Fall|Annual"))) |>
@@ -50,7 +50,7 @@ plot_bottom_temp_model_anom <- function(shadedRegion=NULL,
 
   fix$Var <- factor(fix$Var, levels= c("Winter","Spring","Summer","Fall", "Annual"))
 
-  # psy <- ecodata::bottom_temp_model_anom |>
+  # psy <- ecodata25::bottom_temp_model_anom |>
   #   dplyr::filter(Source == "PSY") |>
   #   dplyr::filter(EPU %in% filterEPUs) |>
   #   dplyr::mutate(Time = as.numeric(Time),
@@ -100,14 +100,14 @@ plot_bottom_temp_model_anom <- function(shadedRegion=NULL,
     ggplot2::ggtitle(paste0(EPU,": Bottom Temperature")) +
     ggplot2::scale_color_manual(values = c("black","indianred",'steelblue4'))+
     ggplot2::facet_wrap(Var~., scales="free_y") +
-    ecodata::theme_ts() +
-    ecodata::theme_facet() +
-    ecodata::geom_gls(inherit.aes =T) +
-    # ecodata::geom_lm(n=10)+
-    # ecodata::geom_lm(ggplot2::aes(x = Time, y = Value))+
+    ecodata25::theme_ts() +
+    ecodata25::theme_facet() +
+    ecodata25::geom_gls(inherit.aes =T) +
+    # ecodata25::geom_lm(n=10)+
+    # ecodata25::geom_lm(ggplot2::aes(x = Time, y = Value))+
     # ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
     #                plot.title = ggplot2::element_text(size = 12))+
-    ecodata::theme_title()
+    ecodata25::theme_title()
 
 
   return(p)

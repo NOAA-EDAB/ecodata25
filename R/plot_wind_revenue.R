@@ -21,7 +21,7 @@ plot_wind_revenue <- function(shadedRegion = NULL,
                               n=0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -31,9 +31,9 @@ plot_wind_revenue <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix <- tidyr::separate(ecodata::wind_revenue,col=Var, into = c("Species", "Var"),sep = "-sum_") |>
+   fix <- tidyr::separate(ecodata25::wind_revenue,col=Var, into = c("Species", "Var"),sep = "-sum_") |>
      dplyr::filter(Var == varName) |>
      dplyr::mutate(Value = Value/1000000)
 
@@ -79,11 +79,11 @@ plot_wind_revenue <- function(shadedRegion = NULL,
         ggplot2::ylab(wind_label)+
         ggplot2::xlab(ggplot2::element_blank())+
         ggplot2::facet_wrap(.~Species,scales = "free_y") +
-        ecodata::geom_lm(n=n)+
-        #ecodata::geom_gls()+
-        ecodata::theme_ts()+
-        ecodata::theme_facet()+
-        ecodata::theme_title()
+        ecodata25::geom_lm(n=n)+
+        #ecodata25::geom_gls()+
+        ecodata25::theme_ts()+
+        ecodata25::theme_facet()+
+        ecodata25::theme_title()
    } else {
      p <- fix |>
        ggplot2::ggplot(ggplot2::aes(x = Time, y = Value,color = Species))+
@@ -95,12 +95,12 @@ plot_wind_revenue <- function(shadedRegion = NULL,
        ggplot2::ggtitle(paste0(report,": ",wind_title))+
        ggplot2::ylab(wind_label)+
        ggplot2::xlab(ggplot2::element_blank())+
-       ecodata::geom_lm(n=n)+
+       ecodata25::geom_lm(n=n)+
 
-       #ecodata::geom_gls()+
-       ecodata::theme_ts()+
-       ecodata::theme_facet()+
-       ecodata::theme_title()
+       #ecodata25::geom_gls()+
+       ecodata25::theme_ts()+
+       ecodata25::theme_facet()+
+       ecodata25::theme_title()
    }
 
 

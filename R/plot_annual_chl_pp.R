@@ -23,7 +23,7 @@ plot_annual_chl_pp <- function(shadedRegion = NULL,
                         n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -49,10 +49,10 @@ plot_annual_chl_pp <- function(shadedRegion = NULL,
 
   varN <- paste0(var,"_ANNUAL_",type)
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-  fix <- ecodata::annual_chl_pp |>
+  fix <- ecodata25::annual_chl_pp |>
     dplyr::mutate(Time = as.integer(gsub("A_","",Time))) |>
     dplyr::filter(EPU == filterEPUs,
                   Var == varN)
@@ -67,7 +67,7 @@ plot_annual_chl_pp <- function(shadedRegion = NULL,
 
     p <- fix |>
       ggplot2::ggplot(ggplot2::aes(x = Time, y = Value)) +
-      #ecodata::geom_lm(aes(x = Year, y = Value, group = Month))+
+      #ecodata25::geom_lm(aes(x = Year, y = Value, group = Month))+
       ggplot2::geom_point() +
       ggplot2::geom_line() +
       ggplot2::annotate("rect", fill = setup$shade.fill, alpha = setup$shade.alpha,
@@ -79,9 +79,9 @@ plot_annual_chl_pp <- function(shadedRegion = NULL,
                           linewidth = setup$hline.size,
                           alpha = setup$hline.alpha,
                           linetype = setup$hline.lty)+
-      ecodata::geom_lm(n=n) +
-      ecodata::theme_facet() +
-      ecodata::theme_title()
+      ecodata25::geom_lm(n=n) +
+      ecodata25::theme_facet() +
+      ecodata25::theme_title()
 
   return(p)
 

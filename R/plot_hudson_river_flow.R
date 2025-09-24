@@ -17,7 +17,7 @@ plot_hudson_river_flow <- function(shadedRegion = NULL,
                               n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -27,9 +27,9 @@ plot_hudson_river_flow <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix<- ecodata::hudson_river_flow |>
+   fix<- ecodata25::hudson_river_flow |>
      dplyr::filter(Var == "Hudson_meanflow")
 
   # code for generating plot object p
@@ -47,11 +47,11 @@ plot_hudson_river_flow <- function(shadedRegion = NULL,
     ggplot2::ggtitle("Hudson River flow")+
     ggplot2::ylab(expression("mean flowrate (m"^3*" s"^-1*")"))+
     ggplot2::xlab(ggplot2::element_blank())+
-    ecodata::geom_gls()+
-    ecodata::geom_lm(n=n)+
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
-    ecodata::theme_title()
+    ecodata25::geom_gls()+
+    ecodata25::geom_lm(n=n)+
+    ecodata25::theme_ts()+
+    ecodata25::theme_facet()+
+    ecodata25::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     if (report == "NewEngland") {
@@ -67,7 +67,7 @@ plot_hudson_river_flow <- function(shadedRegion = NULL,
 attr(plot_hudson_river_flow,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
-  # ecodata::dataset |>
+  # ecodata25::dataset |>
   #   dplyr::filter(Var %in% c("..."),
   #                 EPU == "...") |>
   #   ... more dataset wrangling as necessary |>
@@ -81,9 +81,9 @@ attr(plot_hudson_river_flow,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ggtitle("Title")+
   #   ggplot2::ylab(expression("Y label"))+
   #   ggplot2::xlab(element_blank())+
-  #   ecodata::geom_gls()+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata25::geom_gls()+
+  #   ecodata25::theme_ts()+
+  #   ecodata25::theme_title()
   #
   #
 

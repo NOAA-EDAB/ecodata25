@@ -16,7 +16,7 @@ plot_demo <- function(shadedRegion = NULL,
                       n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -43,8 +43,8 @@ plot_demo <- function(shadedRegion = NULL,
   #Plot series with trend
   psample <- ggplot2::ggplot(data = data,ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_point(size = setup$pcex) +
-    ecodata::geom_gls() +
-    ecodata::geom_lm(n=10,pValThreshold = 0.5) +
+    ecodata25::geom_gls() +
+    ecodata25::geom_lm(n=10,pValThreshold = 0.5) +
     ggplot2::scale_color_manual(aesthetics = "color")+
     ggplot2::guides(color = "none") +
     ggplot2::geom_hline(ggplot2::aes(yintercept = hline),
@@ -62,7 +62,7 @@ plot_demo <- function(shadedRegion = NULL,
     ggplot2::ylab("") +
     ggplot2::xlab("Time") +
     ggplot2::labs(tag = "a")  +
-    ecodata::theme_ts()
+    ecodata25::theme_ts()
 
 
   # Specify data frame with lat/lon locations for labels
@@ -74,7 +74,7 @@ plot_demo <- function(shadedRegion = NULL,
 
   # Map of NE LME
   epumap <- ggplot2::ggplot() +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata25::coast, size = setup$map.lwd) +
     ggplot2::geom_sf(data = setup$epu_sf, fill = "transparent", size = setup$map.lwd) +
     ggplot2::coord_sf(xlim = setup$xlims, ylim = setup$ylims) + #crs = crs,  +
     ggplot2::geom_text(data = epu_labels,
@@ -82,7 +82,7 @@ plot_demo <- function(shadedRegion = NULL,
                                     y = latitude,
                                     label = EPU),
                        size = 1.7) +
-    ecodata::theme_map() +
+    ecodata25::theme_map() +
     ggplot2::scale_x_continuous(breaks = seq(-78, -65, by = 4),
                                 expand = c(0.01, 0.01)) +
     ggplot2::xlab("Longitude") +

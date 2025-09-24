@@ -19,7 +19,7 @@ plot_heatwave_year <- function(shadedRegion = NULL,
                               varName = "Surface") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -29,14 +29,14 @@ plot_heatwave_year <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   plotvar = paste0(varName,"Detrended")
 
-  year <- max(ecodata::heatwave_year$Year, na.rm = TRUE)
+  year <- max(ecodata25::heatwave_year$Year, na.rm = TRUE)
 
-  hwyr <- ecodata::heatwave_year |>
+  hwyr <- ecodata25::heatwave_year |>
     dplyr::filter(EPU %in% filterEPUs,
                   Year == year,
                   Var == plotvar)
@@ -67,11 +67,11 @@ plot_heatwave_year <- function(shadedRegion = NULL,
       ggplot2::xlab(ggplot2::element_blank())+
       ggplot2::scale_x_date(date_labels = "%b", breaks = "1 month")+
       ggplot2::facet_wrap(~EPU, scales = "free_y") +
-      ecodata::theme_facet() +
+      ecodata25::theme_facet() +
       ggplot2::ggtitle(paste(setup$region, plotvartitle, year))+
       ggplot2::theme(legend.title = ggplot2::element_blank(),
             legend.position=c(0.2, 0.8))+
-      ecodata::theme_title()
+      ecodata25::theme_title()
 
      # optional code for New England specific (2 panel) formatting
       if (report == "NewEngland") {
@@ -93,7 +93,7 @@ attr(plot_heatwave_year,"varName") <- c("Surface","Bottom")
 
 
   # Paste commented original plot code chunk for reference
-    # ecodata::heatwave_year %>%
+    # ecodata25::heatwave_year %>%
     #   filter(EPU == "GB",
     #          stringr::str_detect(t, "2022"),
     #          Var == "SurfaceDetrended") %>%
@@ -111,6 +111,6 @@ attr(plot_heatwave_year,"varName") <- c("Surface","Bottom")
     #   ggplot2::ggtitle("Georges Bank")+
     #   theme(legend.title = element_blank(),
     #         legend.position=c(0.2, 0.8))+
-    #   ecodata::theme_title()
+    #   ecodata25::theme_title()
     #
 

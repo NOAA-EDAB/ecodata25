@@ -17,7 +17,7 @@ plot_nao <- function(shadedRegion = NULL,
                      n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -27,9 +27,9 @@ plot_nao <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix<- ecodata::nao |>
+   fix<- ecodata25::nao |>
      dplyr::mutate(hline = mean(Value))
 
   # code for generating plot object p
@@ -51,10 +51,10 @@ plot_nao <- function(shadedRegion = NULL,
     ggplot2::ggtitle("Northern Oscillation Index")+
     ggplot2::ylab(ggplot2::element_blank())+
     ggplot2::xlab(ggplot2::element_blank())+
-    #ecodata::geom_gls()+
-    ecodata::geom_lm(n=n)+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    #ecodata25::geom_gls()+
+    ecodata25::geom_lm(n=n)+
+    ecodata25::theme_ts()+
+    ecodata25::theme_title()
 
 
     return(p)

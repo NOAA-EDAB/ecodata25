@@ -90,7 +90,7 @@ GeomLM <- ggplot2::ggproto("GeomLM",
                            }
 )
 
-#' StatLM Stat protto based on ecodata StatGLS
+#' StatLM Stat protto based on ecodata25 StatGLS
 #' Need to pass arguments
 #'
 #' nBootSamples, pVal significance, number datapoints

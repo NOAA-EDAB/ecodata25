@@ -25,7 +25,7 @@ plot_engagement <- function(shadedRegion = NULL,
                             plottype="plot") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -37,7 +37,7 @@ plot_engagement <- function(shadedRegion = NULL,
 
   # filter to fishery type for main plot
   if (varName == "Commercial"){
-    eng<-ecodata::engagement |>
+    eng<-ecodata25::engagement |>
       #dplyr::distinct(Time, Var,  EPU, Units, .keep_all = T) |> #hack, remove later
       tidyr::separate(Var, into = c("Town", "StateVar"), sep = ",") |> #using two steps because some towns have - in the name
       tidyr::separate(StateVar, into = c("State", "Var"), sep = "-") |> # which also seps the variable
@@ -50,7 +50,7 @@ plot_engagement <- function(shadedRegion = NULL,
   }
 
   if(varName == "Recreational"){
-    eng<-ecodata::engagement |>
+    eng<-ecodata25::engagement |>
       #dplyr::distinct(Time, Var,  EPU, Units, .keep_all = T) |> #hack, remove later
       tidyr::separate(Var, into = c("Town", "StateVar"), sep = ",") |>
       tidyr::separate(StateVar, into = c("State", "Var"), sep = "-") |>
@@ -130,8 +130,8 @@ plot_engagement <- function(shadedRegion = NULL,
                               label.size = NA,
                               fill = ggplot2::alpha(c("white"),0.1))+
     ggplot2::ggtitle(paste(setup$region, "Engagement in Top", varName, "Fishing Communities"))+
-    #ecodata::theme_ts()+
-    ecodata::theme_title()
+    #ecodata25::theme_ts()+
+    ecodata25::theme_title()
 
   # code for generating table of community social vulnerabilities
   t <- eng |>

@@ -1,4 +1,4 @@
-Package: ecodata
+Package: ecodata25
 Title: Documentation of Ecosystem Indicator Reporting
 Version: 6.0.1
 Authors@R: c(person("Brandon", "Beltz", email = "brandon.beltz@noaa.gov", role = c("cre", "aut")),
@@ -46,7 +46,7 @@ Suggests:
 	mgcv,
 	zoo,
 	rlang
-URL: https://noaa-edab.github.io/ecodata/,https://github.com/NOAA-EDAB/ecodata
+URL: https://noaa-edab.github.io/ecodata25/,https://github.com/NOAA-EDAB/ecodata25
 Remotes:
   NOAA-EDAB/arfit
 VignetteBuilder: knitr

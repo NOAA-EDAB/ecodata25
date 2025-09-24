@@ -19,7 +19,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
                                    n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -32,11 +32,11 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     filterEPUs <- EPU
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   # this code from NE reports, works for Mid but includes Spring 2020
-  agg<-ecodata::aggregate_biomass |>
+  agg<-ecodata25::aggregate_biomass |>
     dplyr::mutate(EPU = factor(EPU)) |>
     dplyr::filter(!stringr::str_detect(Var, "Apex|inshore|offshore|managed|NEFMC|MAFMC|JOINT|NA")) |> #remove unused datasets
     tidyr::separate(Var, c("feeding.guild", "season", "Biomass", "Var1"), sep = " ") |>
@@ -73,7 +73,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
 
   if(report == "MidAtlantic"){
     #Get NEAMAP
-    neamap <- ecodata::mab_inshore_survey |>
+    neamap <- ecodata25::mab_inshore_survey |>
       tidyr::separate(Var, into = c("Var",  "Val"), sep = "-") |>
       tidyr::pivot_wider(names_from = Val, values_from = Value) |>
       dplyr::mutate(Value = as.numeric(Value),
@@ -115,16 +115,16 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
                       xmin = setup$x.shade.min , xmax = setup$x.shade.max ,
                       ymin = -Inf, ymax = Inf) +
     #Test for trend and add lines
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_gls(ggplot2::aes(x = Time, y = Mean,
                                    color = Var),
                       alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    ecodata::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
                                        color = Var),
                      alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    # ecodata::geom_lm(aes(x = Time, y = Mean,
+    # ecodata25::geom_lm(aes(x = Time, y = Mean,
     #              color = Var),
     #            alpha = trend.alpha, size = trend.size) +
-    #ecodata::geom_lm(aes(x = Time, y = Mean))+
+    #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 
     #Add time series
     ggplot2::geom_ribbon(ggplot2::aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -144,7 +144,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
     #ylim(0, 1200)+
     ggplot2::ylab(ggplot2::element_blank()) +
-    ecodata::theme_facet()+
+    ecodata25::theme_facet()+
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    axis.title.x=ggplot2::element_blank())
 
@@ -174,16 +174,16 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
                       xmin = setup$x.shade.min , xmax = setup$x.shade.max ,
                       ymin = -Inf, ymax = Inf) +
     #Test for trend and add lines
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_gls(ggplot2::aes(x = Time, y = Mean,
                                    color = Var),
                       alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    ecodata::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
                                        color = Var),
                      alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    # ecodata::geom_lm(aes(x = Time, y = Mean,
+    # ecodata25::geom_lm(aes(x = Time, y = Mean,
     #              color = Var),
     #            alpha = trend.alpha, size = trend.size) +
-    #ecodata::geom_lm(aes(x = Time, y = Mean))+
+    #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 
     #Add time series
     ggplot2::geom_ribbon(ggplot2::aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -203,7 +203,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
     #ylim(0, 1200)+
     ggplot2::ylab(ggplot2::element_blank()) +
-    ecodata::theme_facet()+
+    ecodata25::theme_facet()+
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    axis.title.x=ggplot2::element_blank())
 
@@ -239,16 +239,16 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     #Test for trend and add lines
     # bespoke geom just for planktivores since nmle package could not fit
     # models with ar1 errors
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_gls(ggplot2::aes(x = Time, y = Mean,
                                    color = Var),
                       alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    ecodata::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
                                        color = Var),
                      alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    # ecodata::geom_lm(aes(x = Time, y = Mean,
+    # ecodata25::geom_lm(aes(x = Time, y = Mean,
     #              color = Var),
     #            alpha = trend.alpha, size = trend.size) +
-    #ecodata::geom_lm(aes(x = Time, y = Mean))+
+    #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 
     #Add time series
     ggplot2::geom_ribbon(ggplot2::aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -268,7 +268,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
     #ylim(0, 1200)+
     ggplot2::ylab(ggplot2::element_blank()) +
-    ecodata::theme_facet()+
+    ecodata25::theme_facet()+
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    axis.title.x=ggplot2::element_blank())
 
@@ -299,17 +299,17 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
 
     #Highlight last ten years
     #Test for trend and add lines
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_gls(ggplot2::aes(x = Time, y = Mean,
                                    color = Var),
                       alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
-    ecodata::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
+    ecodata25::geom_lm(n=n, ggplot2::aes(x = Time, y = Mean,
                                        color = Var),
                      alpha = setup$trend.alpha, size = setup$trend.size,na.rm = T) +
 
-    # ecodata::geom_lm(aes(x = Time, y = Mean,
+    # ecodata25::geom_lm(aes(x = Time, y = Mean,
     #              color = Var),
     #            alpha = trend.alpha, size = trend.size) +
-    #ecodata::geom_lm(aes(x = Time, y = Mean))+
+    #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 
     #Add time series
     ggplot2::geom_ribbon(ggplot2::aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -329,7 +329,7 @@ plot_aggregate_biomass <- function(shadedRegion = NULL,
     ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
     #ylim(0, 1200)+
     ggplot2::ylab(ggplot2::element_blank()) +
-    ecodata::theme_facet()+
+    ecodata25::theme_facet()+
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    axis.title.x=ggplot2::element_blank())
 
@@ -363,7 +363,7 @@ attr(plot_aggregate_biomass,"EPU") <- c("MAB","GB","GOM")
 attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 
 # Paste commented original plot code chunk for reference: Mid Atlantic below, NE parts above
-# agg<-ecodata::aggregate_biomass %>%
+# agg<-ecodata25::aggregate_biomass %>%
 # dplyr::filter(EPU == "MAB",
 #               !stringr::str_detect(Var, "Apex|inshore|offshore|managed|NEFMC|MAFMC|JOINT|NA")) %>% #remove unused datasets
 #   tidyr::separate(Var, c("feeding.guild", "season", "Biomass", "Var1", "Null", "Area"), sep = " ") %>%
@@ -403,7 +403,7 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #                     "Benthivores" = expression("Benthivores"),
 #                     "Benthos" = expression("Benthos"))
 # #Get NEAMAP
-# neamap <- ecodata::mab_inshore_survey %>%
+# neamap <- ecodata25::mab_inshore_survey %>%
 #   tidyr::separate(Var, into = c("Var",  "Val"), sep = "-") %>%
 #   tidyr::pivot_wider(names_from = Val, values_from = Value) %>%
 #   dplyr::mutate(Value = as.numeric(Value),
@@ -430,13 +430,13 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #                     xmin = x.shade.min , xmax = x.shade.max ,
 #                     ymin = -Inf, ymax = Inf) +
 #   #Test for trend and add lines
-#   ecodata::geom_gls(aes(x = Time, y = Mean,
+#   ecodata25::geom_gls(aes(x = Time, y = Mean,
 #                         color = Var),
 #                     alpha = trend.alpha, size = trend.size) +
-#   # ecodata::geom_lm(aes(x = Time, y = Mean,
+#   # ecodata25::geom_lm(aes(x = Time, y = Mean,
 #   #              color = Var),
 #   #            alpha = trend.alpha, size = trend.size) +
-#   #ecodata::geom_lm(aes(x = Time, y = Mean))+
+#   #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 #
 #   #Add time series
 #   ggplot2::geom_ribbon(aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -466,7 +466,7 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #   ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
 #   #ylim(0, 1200)+
 #   ggplot2::ylab(expression("Biomass (kg tow"^-1*")")) +
-#   ecodata::theme_facet()+
+#   ecodata25::theme_facet()+
 #   ggplot2::theme(strip.text=element_text(hjust=0),
 #                  axis.title.x=element_blank())
 #
@@ -482,13 +482,13 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #                     xmin = x.shade.min , xmax = x.shade.max ,
 #                     ymin = -Inf, ymax = Inf) +
 #   #Test for trend and add lines
-#   ecodata::geom_gls(aes(x = Time, y = Mean,
+#   ecodata25::geom_gls(aes(x = Time, y = Mean,
 #                         color = Var),
 #                     alpha = trend.alpha, size = trend.size) +
-#   # ecodata::geom_lm(aes(x = Time, y = Mean,
+#   # ecodata25::geom_lm(aes(x = Time, y = Mean,
 #   #              color = Var),
 #   #            alpha = trend.alpha, size = trend.size) +
-#   #ecodata::geom_lm(aes(x = Time, y = Mean))+
+#   #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 #
 #   #Add time series
 #   ggplot2::geom_ribbon( aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -516,7 +516,7 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #   #Axis and theme
 #   ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
 #   ggplot2::ylab(expression("Biomass (kg tow"^-1*")")) +
-#   ecodata::theme_facet()+
+#   ecodata25::theme_facet()+
 #   ggplot2::theme(strip.text=element_text(hjust=0),
 #                  axis.title.x=element_blank())
 #
@@ -533,13 +533,13 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #                     xmin = x.shade.min , xmax = x.shade.max ,
 #                     ymin = -Inf, ymax = Inf) +
 #   #Test for trend and add lines
-#   ecodata::geom_gls(aes(x = Time, y = Mean,
+#   ecodata25::geom_gls(aes(x = Time, y = Mean,
 #                         color = Var),
 #                     alpha = trend.alpha, size = trend.size) +
-#   # ecodata::geom_lm(aes(x = Time, y = Mean,
+#   # ecodata25::geom_lm(aes(x = Time, y = Mean,
 #   #              color = Var),
 #   #            alpha = trend.alpha, size = trend.size) +
-#   #ecodata::geom_lm(aes(x = Time, y = Mean))+
+#   #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 #
 #   #Add time series
 #   ggplot2::geom_ribbon(aes(x = Time, ymin = pmax(lower,0), ymax = upper),
@@ -568,7 +568,7 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #   ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
 #   #ylim(0, 600)+
 #   ggplot2::ylab(expression("Biomass (kg tow"^-1*")")) +
-#   ecodata::theme_facet()+
+#   ecodata25::theme_facet()+
 #   ggplot2::theme(strip.text=element_text(hjust=0),
 #                  axis.title.x=element_blank())
 #
@@ -584,13 +584,13 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #                     xmin = x.shade.min , xmax = x.shade.max ,
 #                     ymin = -Inf, ymax = Inf) +
 #   #Test for trend and add lines
-#   ecodata::geom_gls(aes(x = Time, y = Mean,
+#   ecodata25::geom_gls(aes(x = Time, y = Mean,
 #                         color = Var),
 #                     alpha = trend.alpha, size = trend.size) +
-#   # ecodata::geom_lm(aes(x = Time, y = Mean,
+#   # ecodata25::geom_lm(aes(x = Time, y = Mean,
 #   #              color = Var),
 #   #            alpha = trend.alpha, size = trend.size) +
-#   #ecodata::geom_lm(aes(x = Time, y = Mean))+
+#   #ecodata25::geom_lm(aes(x = Time, y = Mean))+
 #   #Add time series
 #   ggplot2::geom_ribbon( aes(x = Time, ymin = pmax(lower,0), ymax = upper),
 #                         alpha = 0.5,
@@ -617,7 +617,7 @@ attr(plot_aggregate_biomass,"report") <- c("MidAtlantic","NewEngland")
 #   ggplot2::scale_x_continuous(breaks = seq(1970, 2020, by = 10), expand = c(0.01, 0.01)) +
 #
 #   ggplot2::ylab(expression("Biomass (kg tow"^-1*")")) +
-#   ecodata::theme_facet()+
+#   ecodata25::theme_facet()+
 #   ggplot2::theme(strip.text=element_text(hjust=0),
 #                  axis.title.x=element_blank())
 # cowplot::plot_grid(p1, p2, p3, p4, nrow=4)

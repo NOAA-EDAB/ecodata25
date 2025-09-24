@@ -17,7 +17,7 @@ plot_ne_inshore_survey <- function(shadedRegion = NULL,
                               n = 0) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata25::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -28,9 +28,9 @@ plot_ne_inshore_survey <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata25 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix <- ecodata::ne_inshore_survey |>
+   fix <- ecodata25::ne_inshore_survey |>
      dplyr::filter(EPU %in% filterEPUs,
                    !grepl("Other",Var),
                    !grepl("Apex",Var)) |>
@@ -79,11 +79,11 @@ plot_ne_inshore_survey <- function(shadedRegion = NULL,
     ggplot2::ylab(expression("Biomass (kg tow"^-1*")"))+
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::facet_wrap(~Var,ncol=2,scales = "free_y")+
-    #ecodata::geom_gls()+
-    ecodata::geom_lm(n=n)+
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
-    ecodata::theme_title()
+    #ecodata25::geom_gls()+
+    ecodata25::geom_lm(n=n)+
+    ecodata25::theme_ts()+
+    ecodata25::theme_facet()+
+    ecodata25::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

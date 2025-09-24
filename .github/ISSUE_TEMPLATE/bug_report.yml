@@ -1,5 +1,5 @@
-name: Ecodata - Bug Report
-description: Use this issue template to report bugs found in ecodata.
+name: ecodata25 - Bug Report
+description: Use this issue template to report bugs found in ecodata25.
 title: "[Bug Report]: "
 labels: ["bug"]
 assignees: "BBeltz1"
