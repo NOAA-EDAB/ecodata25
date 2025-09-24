@@ -17,5 +17,5 @@ plot_survey_shannon(shadedRegion = NULL, report = "MidAtlantic", n = 0)
 ggplot object
 }
 \description{
-plots ecodata::survey_shannon
+plots ecodata25::survey_shannon
 }
